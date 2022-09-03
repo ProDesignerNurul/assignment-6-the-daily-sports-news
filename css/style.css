@@ -9,6 +9,12 @@ nav img{
 .nav-item{
     list-style: none;
 }
+.nav-item:hover{
+    background-color: cornflowerblue;
+    color: white;
+    border-radius: 5px;
+    padding: 0px 20px;
+}
 
 #category-container{
     display: flex;
@@ -30,4 +36,12 @@ nav img{
     height: 50px;
     width: 50px;
     border-radius: 50%;
+}
+.rating{
+    margin-top: 30px;
+}
+.arroy-btn{
+    border: none;
+    background: none;
+    margin-top: 30px;
 }
