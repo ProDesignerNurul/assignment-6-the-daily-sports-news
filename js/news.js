@@ -7,6 +7,7 @@ const loadCategory = () => {
 
 const displayCategory = categories => {
     const categoryContainer = document.getElementById('category-container');
+    // categoryContainer.innerHTML = '';
     for (const category of categories) {
         const li = document.createElement('li');
         li.classList.add('nav-item');
@@ -27,12 +28,13 @@ const newsLoadOnCategory = (id) => {
     const url = `https://openapi.programming-hero.com/api/news/category/${id}`
     fetch(url)
     .then(res => res.json())
-    .then(data => newsDisplayOnCategory(data))
+    .then(data => newsDisplayOnCategory(data.data))
 }
 
 const newsDisplayOnCategory = (showNewses) => {
     console.log(showNewses)
     const newsShowCategoryContainer = document.getElementById('news-show-category');
+    newsShowCategoryContainer.innerHTML = '';
     for(const showNews of showNewses){
     const showNewsDiv = document.createElement('div');
     showNewsDiv.classList.add('col');
@@ -41,18 +43,18 @@ const newsDisplayOnCategory = (showNewses) => {
     <img src="${showNews.thumbnail_url}" class="card-img-top" alt="...">
     <div class="card-body">
           <h5 class="card-title">${showNews.title}</h5>
-          <p> ${showNews.details}</p>
+          <p> ${showNews.details.slice(0, 150)}</p>
       <div class="d-flex justify-content-between">
       <div class="author">
-          <img class="author-img" src="${showNews.author ? showNews.author.img : 'Not Found'}">
+          <img class="author-img" src="${showNews.author.img ? showNews.author.img : 'Author Image Not Found'}">
       <div>
-          <p class="author-name">${showNews.author ? showNews.author : 'not found'}</p>
-          <p >${showNews.author ? showNews.author.published_date : ' Not Found'}</p>
+          <p class="author-name">${showNews.author.name ? showNews.author.name : 'Name not found'}</p>
+          <p >${showNews.author.published_date ? showNews.author.published_date : 'Publish Date Not Found'}</p>
       </div>
         </div>
       <div class="d-flex rating">
-          <h5 class="pe-3"> ${showNews.rating ? showNews.rating.badge : 'not found'} </h5>
-          <h5> ${showNews.rating ? showNews.rating.number : 'not found'}</h5>
+          <h5 class="pe-3"> ${showNews.rating.badge ? showNews.rating.badge : 'Rating not found'} </h5>
+          <h5> ${showNews.rating.number ? showNews.rating.number : 'Rating Number not found'}</h5>
       </div>
       <div>
         <button class="arroy-btn">>></button>
@@ -107,4 +109,4 @@ const displayNews = newses => {
         newsContainer.appendChild(newsDiv);
     }
 }
-newsLoader('07')
+// newsLoader('07')
