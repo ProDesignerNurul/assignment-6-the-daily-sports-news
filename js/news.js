@@ -13,7 +13,7 @@ const displayCategory = categories => {
         li.innerHTML = `
             
             <li class="nav-item">
-                <a class="nav-link" href="#">${category.category_name}</a>
+                <a onclick="newsLoadOnCategory('${category.category_id}')" class="nav-link" href="#">${category.category_name}</a>
             </li>
         `;
         categoryContainer.appendChild(li);
@@ -23,6 +23,47 @@ const displayCategory = categories => {
 loadCategory()
 
 
+const newsLoadOnCategory = (id) => {
+    const url = `https://openapi.programming-hero.com/api/news/category/${id}`
+    fetch(url)
+    .then(res => res.json())
+    .then(data => newsDisplayOnCategory(data))
+}
+
+const newsDisplayOnCategory = (showNewses) => {
+    console.log(showNewses)
+    const newsShowCategoryContainer = document.getElementById('news-show-category');
+    for(const showNews of showNewses){
+    const showNewsDiv = document.createElement('div');
+    showNewsDiv.classList.add('col');
+    showNewsDiv.innerHTML = `
+    <div class="card">
+    <img src="${showNews.thumbnail_url}" class="card-img-top" alt="...">
+    <div class="card-body">
+          <h5 class="card-title">${showNews.title}</h5>
+          <p> ${showNews.details}</p>
+      <div class="d-flex justify-content-between">
+      <div class="author">
+          <img class="author-img" src="${showNews.author ? showNews.author.img : 'Not Found'}">
+      <div>
+          <p class="author-name">${showNews.author ? showNews.author : 'not found'}</p>
+          <p >${showNews.author ? showNews.author.published_date : ' Not Found'}</p>
+      </div>
+        </div>
+      <div class="d-flex rating">
+          <h5 class="pe-3"> ${showNews.rating ? showNews.rating.badge : 'not found'} </h5>
+          <h5> ${showNews.rating ? showNews.rating.number : 'not found'}</h5>
+      </div>
+      <div>
+        <button class="arroy-btn">>></button>
+      </div>
+      </div>
+    </div>
+  </div>
+    `;
+    newsShowCategoryContainer.appendChild(showNewsDiv);
+    }
+}
 
 // news loader design 
 const newsLoader = async (category_id) => {
@@ -66,4 +107,4 @@ const displayNews = newses => {
         newsContainer.appendChild(newsDiv);
     }
 }
-newsLoader('02')
+newsLoader('07')
