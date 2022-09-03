@@ -1,4 +1,33 @@
+.custom-bg{
+    background-color: antiquewhite;
+}
+
 nav img{
     height: 40px;
     width: 40px;
+}
+.nav-item{
+    list-style: none;
+}
+
+#category-container{
+    display: flex;
+    justify-content: space-between;
+    background-color: antiquewhite;
+    padding: 10px;
+    margin-top: 20px;
+}
+
+.author{
+    border-radius: 50%;
+    display: flex;
+    margin-top: 10px;
+}
+.author-name{
+    font-weight: 700;
+}
+.author-img{
+    height: 50px;
+    width: 50px;
+    border-radius: 50%;
 }
