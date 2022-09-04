@@ -135,3 +135,5 @@ const displayNewsDetails = (newsDetailses) => {
 
 
 newsLoadOnCategory('08')
+
+// complate assignment 6 
