@@ -57,7 +57,7 @@ const newsDisplayOnCategory = (showNewses) => {
           <h5> ${showNews.rating.number ? showNews.rating.number : 'Rating Number not found'}</h5>
       </div>
       <div>
-        <button onclick="getNewsDetails('${showNews.data}')" class="arroy-btn" data-bs-toggle="modal" data-bs-target="#exampleModal">>></button>
+        <button onclick="getNewsDetails('${showNews._id}')" class="arroy-btn" data-bs-toggle="modal" data-bs-target="#exampleModal">>></button>
       </div>
       </div>
     </div>
@@ -71,11 +71,29 @@ const getNewsDetails = async id => {
     const url = `https://openapi.programming-hero.com/api/news/${id}`;
     const res = await fetch(url)
     const data = await res.json()
-    console.log(data.data)
+    displayNewsDetails(data.data)
 }
 
 const displayNewsDetails = (newsDetailses) => {
     console.log(newsDetailses)
+    const newsDetailsHeader = document.getElementById('modal-title');
+    console.log(newsDetailsHeader)
+        newsDetailsHeader.innerHTML = `
+            <div> 
+            <img src="${newsDetailses[0].thumbnail_url}"
+            </div>
+            <div>
+            <h5 class="modal-title" id="exampleModalLabel"> ${newsDetailses[0].title} </h5>
+            <p> ${newsDetailses[0].details.slice(0, 200)} ... </p>
+
+            </div>
+            <div> 
+                <p class="fw-bold"> ${newsDetailses[0].author.name} </p>
+                <p> ${newsDetailses[0].author.published_date} </p>
+            </div>
+        `;
+        
+
   //   const newsDetailsContainer = document.getElementById('news-details-container');
   //   for(const newsDetails of newsDetailses){
   //       const newsDetailsDiv = document.createElement('div')
