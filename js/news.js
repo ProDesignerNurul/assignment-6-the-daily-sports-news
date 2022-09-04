@@ -22,7 +22,7 @@ const displayCategory = categories => {
         li.innerHTML = `
             
             <li class="nav-item">
-                <a onclick="newsLoadOnCategory('${category.category_id}')" class="nav-link" href="#">${category.category_name}</a>
+                <a onclick="loadingSpinner(true), newsLoadOnCategory('${category.category_id}')" class="nav-link" href="#">${category.category_name}</a>
             </li>
         `;
         
@@ -30,6 +30,7 @@ const displayCategory = categories => {
     }
     
 }
+
 
 loadCategory()
 
@@ -51,7 +52,7 @@ const newsDisplayOnCategory = (showNewses) => {
     
     console.log(showNewses)
     const newsShowCategoryContainer = document.getElementById('news-show-category');
-    loadingSpinner(true);
+    
     newsShowCategoryContainer.innerHTML = '';
     for (const showNews of showNewses) {
         const showNewsDiv = document.createElement('div');
@@ -117,20 +118,20 @@ const displayNewsDetails = (newsDetailses) => {
     console.log(newsDetailsHeader)
     newsDetailsHeader.innerHTML = `
             <div> 
-            <img src="${newsDetailses[0].thumbnail_url}"
+            <img src="${newsDetailses[0].thumbnail_url ? newsDetailses[0].thumbnail_url : 'Thumbnail not found'}"
             </div>
             <div>
-            <h5 class="modal-title" id="exampleModalLabel"> ${newsDetailses[0].title} </h5>
-            <p> ${newsDetailses[0].details.slice(0, 200)} ... </p>
+            <h5 class="modal-title" id="exampleModalLabel"> ${newsDetailses[0].title ? newsDetailses[0].title : 'Title not found'} </h5>
+            <p> ${newsDetailses[0].details.slice(0, 200) ? newsDetailses[0].details.slice(0, 200) : 'Details not found'} ... </p>
 
             </div>
             <div> 
-                <p class="fw-bold"> ${newsDetailses[0].author.name} </p>
-                <p> ${newsDetailses[0].author.published_date} </p>
+                <p class="fw-bold"> ${newsDetailses[0].author.name ? newsDetailses[0].author.name : 'name not found'} </p>
+                <p> ${newsDetailses[0].author.published_date ? newsDetailses[0].author.published_date : 'date not found'} </p>
             </div>
         `;
 
 }
 
 
-// newsLoadOnCategory('08')
+newsLoadOnCategory('08')
