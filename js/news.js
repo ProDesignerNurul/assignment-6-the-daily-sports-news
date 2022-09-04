@@ -43,7 +43,7 @@ const newsDisplayOnCategory = (showNewses) => {
     <img src="${showNews.thumbnail_url}" class="card-img-top" alt="...">
     <div class="card-body">
           <h5 class="card-title">${showNews.title}</h5>
-          <p> ${showNews.details.slice(0, 150)}</p>
+          <p>${showNews.details.slice(0, 150)} ...</p>
       <div class="d-flex justify-content-between">
       <div class="author">
           <img class="author-img" src="${showNews.author.img ? showNews.author.img : 'Author Image Not Found'}">
@@ -57,7 +57,7 @@ const newsDisplayOnCategory = (showNewses) => {
           <h5> ${showNews.rating.number ? showNews.rating.number : 'Rating Number not found'}</h5>
       </div>
       <div>
-        <button onclick="getNewsDetails('${showNews.category_id}')" class="arroy-btn" data-bs-toggle="modal" data-bs-target="#exampleModal">>></button>
+        <button onclick="getNewsDetails('${showNews.data}')" class="arroy-btn" data-bs-toggle="modal" data-bs-target="#exampleModal">>></button>
       </div>
       </div>
     </div>
@@ -67,82 +67,82 @@ const newsDisplayOnCategory = (showNewses) => {
     }
 }
 
-const getNewsDetails = (news_id) => {
-    const url = `https://openapi.programming-hero.com/api/news/0282e0e58a5c404fbd15261f11c2ab6a`;
-    fetch(url)
-    .then(res => res.json())
-    .then(data => displayNewsDetails(data.data))
+const getNewsDetails = async id => {
+    const url = `https://openapi.programming-hero.com/api/news/${id}`;
+    const res = await fetch(url)
+    const data = await res.json()
+    console.log(data.data)
 }
 
 const displayNewsDetails = (newsDetailses) => {
     console.log(newsDetailses)
-    const newsDetailsContainer = document.getElementById('news-details-container');
-    for(const newsDetails of newsDetailses){
-        const newsDetailsDiv = document.createElement('div')
-        newsDetailsDiv.innerHTML = `
-    <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">'${newsDetails.title}'</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body">
-        ...
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-      </div>
-    </div>
-  </div>
-    `;
-    newsDetailsContainer.appendChild(newsDetailsDiv)
-    }
+  //   const newsDetailsContainer = document.getElementById('news-details-container');
+  //   for(const newsDetails of newsDetailses){
+  //       const newsDetailsDiv = document.createElement('div')
+  //       newsDetailsDiv.innerHTML = `
+  //   <div class="modal-dialog">
+  //   <div class="modal-content">
+  //     <div class="modal-header">
+  //       <h5 class="modal-title" id="exampleModalLabel">'${newsDetails.title}'</h5>
+  //       <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+  //     </div>
+  //     <div class="modal-body">
+  //       ...
+  //     </div>
+  //     <div class="modal-footer">
+  //       <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+  //     </div>
+  //   </div>
+  // </div>
+  //   `;
+  //   newsDetailsContainer.appendChild(newsDetailsDiv)
+  //   }
 }
 
 // getNewsDetails('0282e0e58a5c404fbd15261f11c2ab6a')
 
 // news loader design 
-const newsLoader = async (category_id) => {
-    // const url `https://openapi.programming-hero.com/api/news/category/01`;
-    const res = await fetch(`https://openapi.programming-hero.com/api/news/category/${category_id}`);
-    const data = await res.json();
-    displayNews(data.data);
-}
+// const newsLoader = async (category_id) => {
+//     // const url `https://openapi.programming-hero.com/api/news/category/01`;
+//     const res = await fetch(`https://openapi.programming-hero.com/api/news/category/${category_id}`);
+//     const data = await res.json();
+//     displayNews(data.data);
+// }
 
-const displayNews = newses => {
-    const newsContainer = document.getElementById('news-container');
-    for (const news of newses) {
-        console.log(news)
-        const newsDiv = document.createElement('div');
-        newsDiv.classList.add('col');
-        newsDiv.innerHTML = `
-        <div class="card">
-  <img src="${news.thumbnail_url}" class="card-img-top" alt="...">
-  <div class="card-body">
-        <h5 class="card-title">${news.title}</h5>
-        <p> ${news.details.slice(0, 200)}</p>
-    <div class="d-flex justify-content-between">
-    <div class="author">
-        <img class="author-img" src="${news.author.img}">
-    <div>
-        <p class="author-name">${news.author.name ? news.author.name : 'Author Name Not Found'}</p>
-        <p >${news.author.published_date ? news.author.published_date : 'Publish Date Not Found'}</p>
-    </div>
-      </div>
-    <div class="d-flex rating">
-        <h5 class="pe-3"> ${news.rating.badge ? news.rating.badge : 'Rating Not Found'} </h5>
-        <h5> ${news.rating.number ? news.rating.number : 'Rating Number Not Found'}</h5>
-    </div>
-    <div>
-      <button onclick="getNewsDetails(${news.data})" class="arroy-btn"> Click </button>
-    </div>
-    </div>
-  </div>
-</div>
-        `;
-        newsContainer.appendChild(newsDiv);
-    }
-}
+// const displayNews = newses => {
+//     const newsContainer = document.getElementById('news-container');
+//     for (const news of newses) {
+//         console.log(news)
+//         const newsDiv = document.createElement('div');
+//         newsDiv.classList.add('col');
+//         newsDiv.innerHTML = `
+//         <div class="card">
+//   <img src="${news.thumbnail_url}" class="card-img-top" alt="...">
+//   <div class="card-body">
+//         <h5 class="card-title">${news.title}</h5>
+//         <p> ${news.details.slice(0, 200)}</p>
+//     <div class="d-flex justify-content-between">
+//     <div class="author">
+//         <img class="author-img" src="${news.author.img}">
+//     <div>
+//         <p class="author-name">${news.author.name ? news.author.name : 'Author Name Not Found'}</p>
+//         <p >${news.author.published_date ? news.author.published_date : 'Publish Date Not Found'}</p>
+//     </div>
+//       </div>
+//     <div class="d-flex rating">
+//         <h5 class="pe-3"> ${news.rating.badge ? news.rating.badge : 'Rating Not Found'} </h5>
+//         <h5> ${news.rating.number ? news.rating.number : 'Rating Number Not Found'}</h5>
+//     </div>
+//     <div>
+//       <button onclick="getNewsDetails(${news.data})" class="arroy-btn"> Click </button>
+//     </div>
+//     </div>
+//   </div>
+// </div>
+//         `;
+//         newsContainer.appendChild(newsDiv);
+//     }
+// }
 
 
 
