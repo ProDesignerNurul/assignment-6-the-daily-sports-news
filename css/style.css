@@ -40,6 +40,9 @@ nav img{
 .rating{
     margin-top: 30px;
 }
+.veiws{
+    margin-top: 30px;
+}
 .arroy-btn{
     border: none;
     background-color: coral;
@@ -50,8 +53,8 @@ nav img{
 }
 
 
-@media screen and (min-width: 200px) and (max-width: 1200px) {
+@media screen and (min-width: 200px) and (max-width: 100px) {
     #category-container li{
-        grid-template-columns: repeat(2, 1fr);
+        grid-template-columns: repeat(1, 1fr);
     }
 }
